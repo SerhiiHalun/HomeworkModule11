@@ -1,17 +1,22 @@
 package Task3;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 
 import static java.util.stream.Collectors.*;
 
 public class Main {
     public static void main(String[] args) {
-        int[] numbers = {1,4,6,23,87,342,6,3,4,5};
+        String[] numbers = {"1, 2, 0", "4, 5"};
+
         String result = Arrays.stream(numbers)
+                .flatMap(s -> Arrays.stream(s.split(",\\s*")))
+                .map(Integer::parseInt)
                 .sorted()
-                .mapToObj( String::valueOf)
-                .collect(joining(", "));
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
         System.out.println(result);
     }
 }
